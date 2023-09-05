@@ -1,0 +1,1 @@
+# Begining of my script sept5 2023
