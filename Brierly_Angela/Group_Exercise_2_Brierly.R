@@ -1,3 +1,4 @@
 # Group Exercise 2: Improve my egg measurement data
 
-getwd
+eggdat=read.csv("data/EggMeasurements_example.csv")
+eggdat
