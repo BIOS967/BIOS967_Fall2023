@@ -151,5 +151,53 @@ legend(8.2, 3, legend=c("I. setosa", "I. versicolor", "I. virginica"), pch=19, c
 
 
 
+##ADDING 'EXTRAS' TO PLOTS: points(), lines(), text(), abline().
+
+#SAVE PLOT AS AN 'OBJECT' so we can run new elements w/out having to re-run the actual plot.
+# generate the plot without the legend:
+par(mar=c(4,4,4,4), xpd=FALSE) #fit the margin and stuff from earlier
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
+example.plot=recordPlot() # save the plot as an object called 'example.plot'
+
+#ADD POINTS
+# calculate the MEAN sepal length and width using 'tapply()':
+mean.Sepal.length=tapply(iris$Sepal.Length, iris$Species, mean)
+mean.Sepal.width=tapply(iris$Sepal.Width, iris$Species, mean)
+mean.Sepal.length
+mean.Sepal.width
+# use 'points()' function to add "x" at the mean sepal length and width values for each spp.
+example.plot
+points(x=mean.Sepal.length, y=mean.Sepal.width, pch="x", cex=2)
+
+#ADD TEXT
+# To specify where text goes
+# center is auto, so specify below, above, left, right of that using 'pos=' argument, and how far OFFSET with 'offset- argument'.
+# add text below each of the "x" (pos=1), and how far it should be offset (offset = 0.5)
+text(x=mean.Sepal.length, y=mean.Sepal.width, labels=c("setosa", "versicolor", "virginica"), pos=1, offset=0.5)
 
 
+#ADD LINES
+# use 'abline()' to add vertical 'v=', horizontal 'h=', or specific slope & intercept.
+# add vertical lines at mean Sepal length for each spp. with dotted line-type,'lty=3'
+example.plot
+abline(v=mean.Sepal.length, lty=3)
+
+# add horizontal lines
+example.plot
+abline(v=mean.Sepal.length, lty=3, col=colorset) #add vertical lines at the mean Sepal lengths for each species.
+abline(h=mean.Sepal.width, lty=3, col=colorset) #add horizontal lines at the mean Sepal widths for each species.
+
+
+##SAVING PLOTS
+# use export or copy-paste, or...
+# ...or...SAVE using R COMMANDS in 3-steps:
+# 1. open up a ‘graphical device’ using a function (e.g., pdf() or png())
+# 2. plot a figure into that graphical device
+# 3. close the graphical device
+# only after you ‘close’ the graphical device can you see the output.
+
+#e.g. SAVE AS PDF
+pdf(file="exampleplot.pdf") #open up a pdf 'graphical device'
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols) #draw the plot
+dev.off() # close the graphical device
+# the pdf plot generated will be in the Files Folder in lower right R-pane.
