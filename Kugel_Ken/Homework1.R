@@ -157,3 +157,36 @@ plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab= "Sepal Widt
 
 plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
 legend("bottomright", legend=c("I. setosa", "I. versicolor", "I. virginica"), pch=19, col=colorset)
+
+par(mar=c(4,4,1,7),xpd= T)
+plot(Sepal.Width~Sepal.Length, data=iris,xlab="Sepal Length", ylab = "Sepal Width",las=1,pch=19,col=pt.cols)
+legend(8.2,3,legend=c("I.setosa", "I. versicolor", "I. virginica"),pch=19, col=colorset)
+#How am I able to see this?
+
+plot(Sepal.Width~Sepal.Length, data=iris,xlab="Sepal Length", ylab = "Sepal Width",las=1,pch=19,col=pt.cols)
+
+example.plot=recordPlot()
+
+mean.Sepal.length= tapply(iris$Sepal.Length,iris$Species, mean)
+mean.Sepal.width= tapply(iris$Sepal.Width,iris$Species, mean)
+mean.Sepal.length
+mean.Sepal.width
+
+example.plot
+points(x=mean.Sepal.length, y=mean.Sepal.width, pch='x', cer=2)
+
+
+example.plot
+points(x=mean.Sepal.length, y=mean.Sepal.width, pch="x", cex=2)
+text(x=mean.Sepal.length, y=mean.Sepal.width, labels=c("setosa", "versicolor", "virginica"), pos=1, offset=0.5)
+
+example.plot
+abline(v=mean.Sepal.length, lty=3)
+
+example.plot
+abline(v=mean.Sepal.length, lty=3, col=colorset)
+abline(h=mean.Sepal.width, lty=3, col=colorset)
+
+pdf(file="exampleplot.pdf")
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
+dev.off()
