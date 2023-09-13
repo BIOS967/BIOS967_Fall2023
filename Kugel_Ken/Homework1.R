@@ -72,5 +72,38 @@ raw_dat4 #why are "." now <NA>?? is that okay since it should be read as NA per 
 #raw_dat3
 
 
-# Finish Basic Plotting Module --------------------------------------------
+# Why do I care if EggID are not numbers!? They're fine as characters! I'm done!
+str(raw_dat4)
 
+# Finish Basic Plotting Module --------------------------------------------
+a = seq(1,15,1)
+b=seq(16,30,1)
+plot(a,b)
+fac= factor(c(rep("A",5),rep("B",5),rep("C",5)))
+plot(fac, a)
+
+plot(a~fac)
+
+t= seq(1,10,1)
+response= c(1,5,4,2,3,9,6,7,8,10)
+plot(t,response,type="b") #for some reason, 1 does not work
+
+plot(t,response,type="p")
+plot(t,response,type="h")
+plot(t,response,type="s")
+
+groups=c(rep("a",10),rep("b",5),rep("c",2))
+groups.table = table(groups)
+groups.table
+barplot(groups.table)
+
+iris
+str(iris)
+?iris
+
+plot(iris$Sepal.Length, iris$Sepal.Width)
+
+plot(iris$Species, iris$Sepal.Width)
+
+plot(iris$Sepal.Width~iris$Sepal.Length)
+plot(iris$Sepal.Width~iris$Species)
