@@ -107,3 +107,53 @@ plot(iris$Species, iris$Sepal.Width)
 
 plot(iris$Sepal.Width~iris$Sepal.Length)
 plot(iris$Sepal.Width~iris$Species)
+plot(Sepal.Width~Sepal.Length, data=iris)
+
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width")
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width", main="Length vs Width: Sepals in Iris Dataset")
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width", main="Length vs Width: Sepals in Iris Dataset", las=1,xlim=c(0,10),ylim=c(0,5))
+
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width", las=1,pch=4)
+
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width", las=1,pch=1,cex=3)
+
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width", las=1,pch=19,cex=1, col=4)
+
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width", las=1,pch=19,cex=1, col="red")
+
+plot(Sepal.Width~Sepal.Length, data= iris, xlab = "Sepal Length", ylab="Sepal Width", las=1,pch=19,cex=1, col="#00FF00")
+
+my.colors=rainbow(24)
+plot(1:24,pch=19,cex=2,col=my.colors)
+
+my.colors_2=topo.colors(24)
+plot(1:24,pch=19,cex=2,col=my.colors_2)
+
+my.colors_3=heat.colors(24)
+plot(1:24,pch=19,cex=2,col=my.colors_3)
+
+my.colors_4=cm.colors(24)
+plot(1:24,pch=19,cex=2,col=my.colors_4)
+
+plot(Sepal.Width~Sepal.Length, data=iris,xlab="sepal Length", ylab="Sepal Width",las=1, pch=19, cex=3, col=rgb(1,0,0,0.25))
+
+par(mfrow=c(1,2))
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width",las=1,pch=19,col= "#00FF00")
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width",las=1,pch=19,col= "tomato")
+
+?par
+par
+
+head(iris$Species)
+
+as.numeric(iris$Species)
+
+plot(Sepal.Width~Sepal.Length,data=iris, xlab="Sepal Length", ylab= "Sepal Width", las=1, pch= 19, col=as.numeric(iris$Species))
+
+colorset=rainbow(3)
+pt.cols=colorset[as.numeric(iris$Species)]
+
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab= "Sepal Width", las=1, pch=19, col=pt.cols)
+
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
+legend("bottomright", legend=c("I. setosa", "I. versicolor", "I. virginica"), pch=19, col=colorset)
