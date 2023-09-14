@@ -42,4 +42,18 @@ plot(dat2$weight~dat2$size)#plot in 'formula'
 plot(weight~size,data=dat2)
 boxplot(weight~size,data=dat2)
 
+#09-11-2023
+eggs=read.csv("data/EggMeasurements_example.csv")
+head(eggs)
+unique(eggs$mass)
+eggs=read.csv("data/EggMeasurements_example.csv", na.strings=".")
+unique(eggs$mass)
+
+
+
+
+
+
+
+
 
