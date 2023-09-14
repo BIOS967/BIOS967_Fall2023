@@ -187,6 +187,6 @@ example.plot
 abline(v=mean.Sepal.length, lty=3, col=colorset)
 abline(h=mean.Sepal.width, lty=3, col=colorset)
 
-pdf(file="exampleplot.pdf")
+pdf(file="Kugel_Ken/exampleplot.pdf")
 plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
 dev.off()
