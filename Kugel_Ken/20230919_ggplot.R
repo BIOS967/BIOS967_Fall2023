@@ -117,7 +117,7 @@ ggplot(data=iris,mapping= aes(x=Sepal.Length, y=Sepal.Width, fill=Species)) +
 
 #Facet: Plot subsets of data separately
 ggplot(data=iris,mapping= aes(x=Sepal.Length, y=Sepal.Width, fill=Species)) +
-  geom_point(size=3,pch=21)+
+  geom_point(size=3,pch=21)+    #can add in alpha =0.05 to make semitransparent
   scale_fill_brewer(palette = "PRGn")+
   theme_light()+
   theme(panel.grid.major=element_blank(), panel.grid.minor = element_blank(), legend.position = "none")+
