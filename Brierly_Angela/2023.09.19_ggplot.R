@@ -18,7 +18,7 @@ ggplot(data=iris, mapping = aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
 #___________________________________________________________________________
   ## COLOR PALETTES in ggplot
 ggplot(data=iris, mapping = aes(x=Sepal.Length, y=Sepal.Width, fill=Species)) + #fill by species
-  geom_point(size=2, pch=21) +  #pch=21 makes it filled, with an outline
+  geom_point(size=2, shape="circle filled", alpha=0.5) +  #pch=21 makes it filled, with an outline
   scale_fill_brewer(palette = "RdYlBu") + #google color_brewer for cartographer palettes and color numbers!
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "none") +
@@ -26,7 +26,8 @@ ggplot(data=iris, mapping = aes(x=Sepal.Length, y=Sepal.Width, fill=Species)) + 
   ylab("Sepal Width") +
   facet_grid(~Species)  #plot subsets of data separately (i.e. diff plots for ea spp)
 
-
+## another way to SAVE the LAST PLOT you made
+ggsave("Brierly_Angela/ggplot_facet.png")
 
 
 
