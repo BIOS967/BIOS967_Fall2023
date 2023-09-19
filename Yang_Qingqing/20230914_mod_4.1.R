@@ -71,8 +71,47 @@ plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width
 head(iris$Species)
 as.numeric(iris$Species) #convert species into numbers.
 plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=as.numeric(iris$Species))
-#assign diferent colors to different species
+#assign different colors to different species
 
 colorset=rainbow(3) #create a palette of 3 colors
 pt.cols=colorset[as.numeric(iris$Species)] #This is now a vector of colors for each point
 plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
+#how do you make it not follow the "par" thing from before?
+
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
+legend("bottomright", legend=c("I. setosa", "I. versicolor", "I. virginica"), pch=19, col=colorset)
+
+par(mar=c(4,4,1,7), xpd=TRUE) #make the margin wider and let me plot outside the box
+par(mfrow=c(1,1))
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols)
+legend(8.2, 3, legend=c("I. setosa", "I. versicolor", "I. virginica"), pch=19, col=colorset)
+# how do I undo par(mfrow=c(1,2))?
+
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols) #make the same plot without the legend
+example.plot=recordPlot() #save the plot as an object called 'example.plot'
+#want sepal length and width for each species
+#calculate the means
+mean.Sepal.length=tapply(iris$Sepal.Length, iris$Species, mean)
+mean.Sepal.width=tapply(iris$Sepal.Width, iris$Species, mean)
+mean.Sepal.length
+mean.Sepal.width
+
+points(x=mean.Sepal.length, y=mean.Sepal.width, pch="x", cex=2) #add an "x" at the mean Sepal length & width for all three species
+text(x=mean.Sepal.length, y=mean.Sepal.width, labels=c("setosa", "versicolor", "virginica"), pos=1, offset=0.5) #add text below each of the "x" (pos=1), and how far it should be offset (offset = 0.5)
+
+#two functions for lines: line and abline
+#abline can have specified slope and intersept
+
+example.plot
+abline(v=mean.Sepal.length, lty=3) #add a vertical dotted lines at the mean sepal length for each species.
+
+example.plot
+abline(v=mean.Sepal.length, lty=3, col=colorset) #add vertical lines at the mean Sepal lengths for each species.
+abline(h=mean.Sepal.width, lty=3, col=colorset) #add horizontal lines at the mean Sepal widths for each species.
+
+#exporting plots
+#can use the interface or
+pdf(file="exampleplot.pdf") #open up a pdf 'graphical device'
+plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width", las=1, pch=19, col=pt.cols) #draw the plot
+dev.off() # close the graphical device
+#how do I determine where it saves? It went to the general BIOS967 folder
