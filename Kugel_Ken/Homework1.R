@@ -86,7 +86,7 @@ plot(a~fac)
 
 t= seq(1,10,1)
 response= c(1,5,4,2,3,9,6,7,8,10)
-plot(t,response,type="b") #for some reason, 1 does not work
+plot(t,response,type="b") #for some reason, 1 does not work... Its not 1--> its l the letter
 
 plot(t,response,type="p")
 plot(t,response,type="h")
@@ -142,8 +142,8 @@ plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width
 plot(Sepal.Width~Sepal.Length, data=iris, xlab="Sepal Length", ylab="Sepal Width",las=1,pch=19,col= "tomato")
 
 ?par
-par
-
+#par
+# We can fix the par by doing par(mfrow=(1,1))
 head(iris$Species)
 
 as.numeric(iris$Species)
