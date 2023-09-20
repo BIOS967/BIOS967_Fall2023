@@ -49,6 +49,38 @@ unique(eggs$mass)
 eggs=read.csv("data/EggMeasurements_example.csv", na.strings=".")
 unique(eggs$mass)
 
+#09-19-2023
+#install.packages("ggplot2")
+"
+1. data:
+2. aesthetics: How do the variables are related to each other
+3. geom: Type of geometric object
+4. scale: set of values that the variables will take
+5. theme:
+"
+library(ggplot2)
+#normal plot
+plot(Sepal.Width~Sepal.Length,data=iris,xlab="Sepal Length",
+     ylab="Sepal Width",las=1,col=iris$Species,pch=10)
+#ggplot way
+p1=ggplot(data=iris,mapping = aes(x=Sepal.Length,y=Sepal.Width,color=Species))+
+  geom_point(size=2,pch=10,alpha=0.5)+
+  scale_fill_brewer(palette="Paired")+
+  theme_bw()+
+  theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),legend.position = "none")+
+  xlab("Sepal Length")+
+  ylab("Sepal Width")+
+  facet_grid(~Species)
+ggsave("Huang_Fan/ggplot_facet.pdf",p1)
+
+
+
+
+
+
+
+
+
 
 
 
