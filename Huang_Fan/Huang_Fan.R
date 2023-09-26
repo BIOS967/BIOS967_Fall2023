@@ -73,19 +73,56 @@ p1=ggplot(data=iris,mapping = aes(x=Sepal.Length,y=Sepal.Width,color=Species))+
   facet_grid(~Species)
 ggsave("Huang_Fan/ggplot_facet.pdf",p1)
 
+#09-21-2023 linear models
+library(ggplot2)
+#install.packages("MASS")
+library(MASS)
+"
+numbers:
+  continuous
+  binary (0 or 1)
+  counts
+  preportion
+
+factors (categories):
+
+"
+mtcars
+fit=lm(mpg~wt,data=mtcars)
+summary(fit)
+ggplot(mtcars,mapping = aes(x=wt,y=mpg))+
+  geom_point()+
+  geom_smooth(method = "lm",color="black",se=F)+
+  theme_bw()+
+  xlab("weight")+
+  ylab("miles per gallon")
+
+ggplot(mtcars,mapping = aes(x=wt,y=mpg))+
+  geom_point()+
+  geom_smooth(method = "loess",color="black",se=F)+
+  theme_bw()+
+  xlab("weight")+
+  ylab("miles per gallon")
+
+ggplot(mtcars,mapping = aes(x=wt,y=mpg))+
+  geom_point()+
+  geom_smooth(method = "glm",color="black",se=F)+
+  theme_bw()+
+  xlab("weight")+
+  ylab("miles per gallon")
 
 
+mtcars$vs
+ggplot(data=mtcars,mapping = aes(x=factor(vs),y=mpg))+
+  geom_boxplot()
 
+aov.fit=aov(formula=mpg~factor(vs),data=mtcars)
+summary(aov.fit)
 
+lm.fit=lm(formula=mpg~factor(vs),data = mtcars)
+summary(lm.fit)
 
+anova(lm.fit)
 
-
-
-
-
-
-
-
-
-
-
+lm.fit2=lm(mpg~wt+factor(vs),data = mtcars)
+anova(lm.fit2)
