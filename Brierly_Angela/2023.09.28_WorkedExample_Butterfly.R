@@ -1,1 +1,1 @@
-# 2023.09.28   BUTTERFLY DATA
+# 2023.09.28_  Worked example: Bowden butterfly data
