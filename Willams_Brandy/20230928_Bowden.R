@@ -57,5 +57,40 @@ boloria
 
 #getting avg and stderror of wing length for ea sex of ea species for ea yr
 
-colias %>% group_by(year,sex) %>% summarise(mean_se(WL))
+wl.colias=colias %>% group_by(year,sex) %>% summarise(mean_se(WL))
 
+p2.a=ggplot(wl.colias, aes(x=year, y=y, group=sex))+
+  geom_path()+
+  geom_point(aes(fill=sex),pch=21)+
+  scale_fill_manual(values=c("black", "white"))+
+  geom_errorbar(aes(ymin=ymin,ymax=ymax))+
+  theme_bw()
+
+#for boloria data
+wl.boloria=boloria %>% group_by(year,sex) %>% summarise(mean_se(WL))
+
+p2.b=ggplot(wl.boloria, aes(x=year, y=y, group=sex))+
+  geom_path()+
+  geom_point(aes(fill=sex),pch=21)+
+  scale_fill_manual(values=c("black", "white"))+
+  geom_errorbar(aes(ymin=ymin,ymax=ymax))+
+  theme_bw()
+
+p2.b
+
+
+#figure 2 panels c and d, we need to merge together the yrly wl and yrly clomate data using "join" function
+year.dat
+wl.colias
+
+wl.colias2=left_join(wl.colias, year.dat, by=join_by(year==year))
+
+=ggplot(wl.colias2, aes(x=mayaug.1, y=y, group=sex))+
+  geom_point(aes(fill=sex), pch=21)+
+  scale_fill_manual(values=c("black", "white"))+
+  geom_smooth(method="lm", se=F, colo="black")+
+  theme_bw()
+
+wl.boloria2=left_join(wl.boloria, year.dat, by=join_by(year==year))
+
+plot_grid (p2.a, p2.b, p2.c, p2.d, nrow=2)
