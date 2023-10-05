@@ -32,5 +32,51 @@ spp.mods
 
 summary(spp.mods[[1]])#results
 
+spp.mods.summary=lapply(spp.mods,function(x)summary(x))
+
+#Get the slope of relationship of ea model
+str(spp.mods.summary[[1]])#look at the structure of summary output
+spp.mods.summary[[1]]$coefficients
+spp.mods.summary[[1]]$coefficients[2,1]#goal number
+
+slopes=sapply(spp.mods.summary,function(x)x$coefficients[2,1])
+slopes
+
+#Alt+shift+ arrow to duplicate lines of code
+
+#visualize relationship betweem pertal length and sepal length for ea species
+library(ggplot2)
+ggplot(iris,aes(x=Sepal.Length,y=Petal.Length,color=Species))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_wrap(~Species)
 
 
+##For-loops()
+for(i in 1:5)print(i*2)
+
+v=vector(length=5)
+v
+for(i in 1:5)v[i]=i*2 #gives us i= 1,2,3,4,5,6
+v
+for(i in 1:5)v[i]=(i+1)*2 #to fix, now i=2,3,4,5
+v
+
+times=5
+m=matrix(nrow=times,ncol=10)
+for(i in 1:times)m[i,]=(1:10*i)
+m
+
+#while-loop
+j=1
+while(j<10){
+  print(j)
+  j=j+1
+}
+j
+
+j=1
+while(j<20){
+  if(j==10) print("10!")else print(j)
+  j=j+1
+}
