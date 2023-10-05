@@ -69,3 +69,59 @@ ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
   geom_point()+
   geom_smooth(method = "lm")+
   facet_wrap(~Species)
+
+
+
+#For Loops #################################################################################
+for(i in 1:5) print(i*2)
+
+
+v=vector(length=5)
+for(i in 1:5) v[i]=i*2
+v
+
+a=c(8,4,3,1)
+for(i in 1:5) v[i]=a[i]*2
+v
+
+
+
+times=20
+col.times = 20
+m=matrix(nrow=times,ncol=col.times)
+m
+for(i in 1:times) m[i,]=i* (1:col.times)
+m
+
+
+j=1
+while(j<=10){
+  if(j ==10) print("j too high") else print(j)
+  j= j+1
+}
+
+
+
+
+
+#Samples and Distributions ###################################
+
+#Sample function takes a vector, then gives a random value within the vector under certian conditions
+
+sample(1:10,1)
+
+sample(1:10,10) #gives you 1:10 in random order, but no repeats
+
+sample(1:10, 10, replace=T) #now we can get repeats
+#This is also called bootstrapping - sampling with replacement
+
+obs.mean = mean(mtcars$mpg)
+samp.mean= vector(length=100)
+for(i in 1:100){
+  samp = sample(1:length(mtcars$mpg),25)
+  samp.mean[i]=mean(mtcars$mpg[samp])
+}
+samp.mean
+obs.mean
+hist(samp.mean)
+abline(v=obs.mean, col="red")
