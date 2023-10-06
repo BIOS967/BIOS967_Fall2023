@@ -21,6 +21,7 @@ sapply(1:5,function(x)x*v)
 
 lapply(1:5,function(x)x*v)
 
+
 ##USe sapply and lapply to run linear ,odels on multiple datasets
 iris
 iris.split=split(iris,iris$Species)
@@ -80,3 +81,32 @@ while(j<20){
   if(j==10) print("10!")else print(j)
   j=j+1
 }
+
+
+
+#Random Sampling
+
+sample(1:10,1) #gives 1 number between 1 &10
+sample(1:10,10) #gives 10 numbers between 1 &10
+sample(1:10,10, replace=TRUE) #gives 10 numbers between 1 &10, and allows re-draw, "BOOTSTRAPPING- sampling with replacement
+
+
+
+
+obs.mean=mean(mtcars$mpg)
+
+samp.mean=vector(length=100)
+for(i in 1:100){
+  samp=sample(1:length(mtcars$mpg),25)#randomly pick 35 numbers betweem 1 and 32 (numner of cars)
+  samp.mean[i]=mean(mtcars$mpg[samp])#pick the cars assigned by samp and take the mean mpg
+}
+samp
+samp.mean
+
+obs.mean
+
+hist(samp.mean)#make a histogram of subsample means
+
+abline(v=obs.mean,col='red')#draw a red line where obs mean was
+
+

@@ -330,3 +330,65 @@ average=function(x,type="geometric")
 }
 average(1:10)
 
+
+#05-10-2023
+#apply functions and loops
+
+#create an example function
+mult.2=function(x) x*2
+mult.2(1242)
+
+#use sapply() to apply this function to a set of numbers
+
+#take integers from 1 to 5, and multiply each by 2
+sapply(1:5,mult.2)
+
+v=c(1,2,3)
+
+sapply(1:5, function(x) x*v)
+
+lapply(1:5, function(x) x*v)
+
+iris.list=split(iris, iris$Species)
+iris.list
+spp.mods=lapply(iris.list, function(x) lm(Petal.Length~Sepal.Length, data=x))
+spp.mods
+spp.mods.summary=lapply(spp.mods, function(x) summary(x))
+spp.mods.summary
+sapply(spp.mods.summary, function(x) x$coefficients[2,1])
+
+
+m=matrix(1:20, nrow=5, byrow=TRUE)
+m
+apply(m,1,sum) #sum the rows
+apply(m,2,sum) #sum the columns
+apply(m,1,function(x) x)
+apply(m,2,function(x) x)
+
+apply(m,c(1,2),function(x) x)
+
+library(ggplot2)
+ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  facet_wrap(~Species)
+
+times=5
+m=matrix(nrow=times,ncol=10)
+for (i in 1:times)
+{
+  m[i,]=(1:10)*i
+}
+m
+
+sample(1:10, 10, replace = T)
+
+obs.mean=mean(mtcars$mpg)
+
+samp.mean=vector(length = 100)
+
+samp.mean
+obs.mean
+
+hist(samp.mean)
+abline(v=obs.mean,col="red")
