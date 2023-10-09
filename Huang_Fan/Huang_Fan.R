@@ -73,19 +73,322 @@ p1=ggplot(data=iris,mapping = aes(x=Sepal.Length,y=Sepal.Width,color=Species))+
   facet_grid(~Species)
 ggsave("Huang_Fan/ggplot_facet.pdf",p1)
 
+#09-21-2023 linear models
+library(ggplot2)
+#install.packages("MASS")
+library(MASS)
+"
+numbers:
+  continuous
+  binary (0 or 1)
+  counts
+  preportion
+
+factors (categories):
+
+"
+mtcars
+fit=lm(mpg~wt,data=mtcars)
+summary(fit)
+ggplot(mtcars,mapping = aes(x=wt,y=mpg))+
+  geom_point()+
+  geom_smooth(method = "lm",color="black",se=F)+
+  theme_bw()+
+  xlab("weight")+
+  ylab("miles per gallon")
+
+ggplot(mtcars,mapping = aes(x=wt,y=mpg))+
+  geom_point()+
+  geom_smooth(method = "loess",color="black",se=F)+
+  theme_bw()+
+  xlab("weight")+
+  ylab("miles per gallon")
+
+ggplot(mtcars,mapping = aes(x=wt,y=mpg))+
+  geom_point()+
+  geom_smooth(method = "glm",color="black",se=F)+
+  theme_bw()+
+  xlab("weight")+
+  ylab("miles per gallon")
 
 
+mtcars$vs
+ggplot(data=mtcars,mapping = aes(x=factor(vs),y=mpg))+
+  geom_boxplot()
+
+aov.fit=aov(formula=mpg~factor(vs),data=mtcars)
+summary(aov.fit)
+
+lm.fit=lm(formula=mpg~factor(vs),data = mtcars)
+summary(lm.fit)
+
+anova(lm.fit)
+
+lm.fit2=lm(mpg~wt+factor(vs),data = mtcars)
+anova(lm.fit2)
+
+#09-26-2023
+#install.packages("tidyverse")
+#install.packages("wbstats")
+library(wbstats)
+library(tidyverse)
 
 
+#using the billboard
+billboard
+?billboard
+
+filter(billboard, artist=="Backstreet Boys, The")
+billboard %>% filter(artist=="Backstreet Boys, The")
+
+billboard %>% filter(artist=="Backstreet Boys, The"| artist=="N'Sync") %>% filter(wk1<50)
+
+billboard %>% filter(artist=="Backstreet Boys, The" & wk1<50)
+
+billboard %>% select(-artist, -date.entered)
+
+#calculate the best rank in year 2000 for each artist
+bb.summary=billboard %>%
+  pivot_longer(cols=starts_with("wk"),names_to = "week",values_to = "rank") %>%
+  drop_na() %>%
+  group_by(artist) %>%
+  summarise(artist.best=min(rank),n.weeks=n())
+
+bb.summary
+
+library(ggplot2)
+ggplot(bb.summary,aes(x=n.weeks,y=artist.best))+
+  geom_point()
 
 
+#create a new variable using mutate()
+#calculate rank change between week1 and week 2 for each song
+billboard %>%
+  mutate(rank.diff=wk2-wk1)%>%
+  select(artist,track,wk1,wk2,rank.diff)
 
 
+#09-28-2023
+boloria=read.csv("data/boloria.csv")
+boloria
+
+colias=read.csv("data/colias.csv")
+colias
+
+library(tidyverse)
+#install.packages("cowplot")
+library(cowplot)
+
+year.dat=boloria %>% group_by(year) %>% summarise(snow=mean(snow),mayjun=mean(mayjun),mayaug.1=mean(mayaug.1))
+
+p1=ggplot(year.dat,aes(x=year,y=snow))+
+  geom_point()+
+  geom_smooth(method = "lm",se=F,color="black")+
+  theme_bw()
+
+p2=ggplot(year.dat,aes(x=year,y=mayjun))+
+  geom_point()+
+  geom_smooth(method = "lm",se=F,color="black")+
+  theme_bw()+
+  labs(y=expression(paste("Average Temperature"["t"]," ",(~degree*C))))
+p2
 
 
+p3=ggplot(year.dat,aes(x=year,y=mayaug.1))+
+  geom_point()+
+  geom_smooth(method = "lm",se=F,color="black")+
+  theme_bw()
+p3
+
+plot_grid(p1,p2,p3,align="v",nrow=3)
+
+fit.snow=lm(snow~year,data=year.dat)
+summary(fit.snow)
+
+fit.mayjun=lm(mayjun~year,data=year.dat)
+summary(fit.mayjun)
+
+wl.colias=colias %>% group_by(year,sex) %>% summarise(mean_se(WL))
+wl.boloria=boloria %>% group_by(year,sex) %>% summarise(mean_se(WL))
 
 
+p2.a=ggplot(wl.colias,aes(x=year,y=y,group=sex))+
+  geom_path()+
+  geom_point(aes(fill=sex),pch=21)+
+  scale_fill_manual(values=c("red","blue"))+
+  geom_errorbar(aes(ymin=ymin,ymax=ymax))+
+  theme_bw()+
+  theme(legend.position = "none")
+
+p2.b=ggplot(wl.boloria,aes(x=year,y=y,group=sex))+
+  geom_path()+
+  geom_point(aes(fill=sex),pch=21)+
+  scale_fill_manual(values=c("red","blue"))+
+  geom_errorbar(aes(ymin=ymin,ymax=ymax))+
+  theme_bw()+
+  theme(legend.position = "none")
+
+wl.colias=left_join(wl.colias,year.dat,by=join_by(year==year))
+p2.c=ggplot(wl.colias,aes(x=mayaug.1,y=y,group=sex))+
+  geom_point(aes(fill=sex),pch=21)+
+  scale_fill_manual(values=c("black","white"))+
+  geom_errorbar(aes(ymin=ymin,ymax=ymax))+
+  theme_bw()
+
+wl.boloria=left_join(wl.boloria,year.dat,by=join_by(year==year))
+p2.d=ggplot(wl.boloria,aes(x=mayaug.1,y=y,group=sex))+
+  geom_point(aes(fill=sex),pch=21)+
+  scale_fill_manual(values=c("black","white"))+
+  geom_errorbar(aes(ymin=ymin,ymax=ymax))+
+  theme_bw()
+
+plot_grid(p2.a,p2.c,p2.b,p2.d,nrow=2)
+
+#10-03-2023
+#function
+1:10
+mean(1:10)
+sum(1:10)/length(1:10)
+#make this into a function
+mean.custom=function(y)
+{
+  sum(y)/length(y)
+}
+#use it
+mean.custom(y=1:10)
+mean.custom(iris$Sepal.Length)#my own function
+mean(iris$Sepal.Length)#R function
+#if else statements
+num=4
+if (num %%2==0) {
+  print("this number is even")
+}
+num=7
+if (num %%2==0) {
+  print("this number is even")
+} else {
+  print("this number is odd")
+}
+
+#make a custom function to tell if a number is even or odd
+even.or.odd=function(num)
+{
+  if (num %%2==0)
+  {
+    print("this number is even")
+  } else if (num%%2==1)
+  {
+    print("this number is odd")
+  } else
+  {
+    print("this number is neither even nor odd")
+  }
+}
+even.or.odd(4.1)
 
 
+#make a custom function to tell if a number is even or odd
+even.or.odd=function(num)
+{
+  if (isFALSE(all.equal(num, as.integer(num))))
+  {
+    print("this is not an integer")
+  }
+  else if (num %%2==0)
+  {
+    print("this number is even")
+  } else
+  {
+    print("this number is odd")
+  }
+}
+even.or.odd(4)
+
+#example: custom function for averages
+#this version does not have a default type
+average=function(x,type)
+{
+  if (type=="grithmetric") {
+    sum(x)/length(x)
+  } else if (type=="geometric")
+  {
+    prod(x)^(1/length(x))
+  }
+}
+average(1:10,type="grithmetric")
+
+#creat a default type
+
+average=function(x,type="geometric")
+{
+  if (type=="grithmetric") {
+    sum(x)/length(x)
+  } else if (type=="geometric")
+  {
+    prod(x)^(1/length(x))
+  }
+}
+average(1:10)
 
 
+#05-10-2023
+#apply functions and loops
+
+#create an example function
+mult.2=function(x) x*2
+mult.2(1242)
+
+#use sapply() to apply this function to a set of numbers
+
+#take integers from 1 to 5, and multiply each by 2
+sapply(1:5,mult.2)
+
+v=c(1,2,3)
+
+sapply(1:5, function(x) x*v)
+
+lapply(1:5, function(x) x*v)
+
+iris.list=split(iris, iris$Species)
+iris.list
+spp.mods=lapply(iris.list, function(x) lm(Petal.Length~Sepal.Length, data=x))
+spp.mods
+spp.mods.summary=lapply(spp.mods, function(x) summary(x))
+spp.mods.summary
+sapply(spp.mods.summary, function(x) x$coefficients[2,1])
+
+
+m=matrix(1:20, nrow=5, byrow=TRUE)
+m
+apply(m,1,sum) #sum the rows
+apply(m,2,sum) #sum the columns
+apply(m,1,function(x) x)
+apply(m,2,function(x) x)
+
+apply(m,c(1,2),function(x) x)
+
+library(ggplot2)
+ggplot(iris, aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  facet_wrap(~Species)
+
+times=5
+m=matrix(nrow=times,ncol=10)
+for (i in 1:times)
+{
+  m[i,]=(1:10)*i
+}
+m
+
+sample(1:10, 10, replace = T)
+
+obs.mean=mean(mtcars$mpg)
+
+samp.mean=vector(length = 100)
+
+samp.mean
+obs.mean
+
+hist(samp.mean)
+abline(v=obs.mean,col="red")
