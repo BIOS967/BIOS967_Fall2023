@@ -67,3 +67,20 @@ sum(dats.R1A35[[1]]$Distance)
 sapply(dats.R1A35, function(x) sum(x$Distance))
 
 sapply(list(dats.R1A35,dats.R2A35, dats.R3A35), function(y) sapply(y, function(x) sum(x$Distance)))
+
+##
+fnames=list.files("data/Flack et al_Biology Letters/R1/A_A35/")
+
+library(stringr)
+group=str_sub(fnames, start=1, end=1)
+id=str_sub(fnames, start=3, end=5)
+route=str_sub(fnames, start=7, end=8)
+trial=str_sub(fnames, start=10, end=11)
+
+distances=sapply(dats.R1A35, function(x) sum(x$Distance))
+distances
+
+dat=data.frame(group, id, route, trial, distances)
+ggplot(dat, aes(x=trial, y=distances, group=group)) +
+  geom_point() +
+  geom_line()
