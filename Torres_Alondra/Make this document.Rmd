@@ -2,7 +2,7 @@
 title: 'Exercise: Make this document'
 author: "Alondra Torres"
 date: "2023-11-14"
-output: html_document
+output: "html_document"
 ---
 
 ```{r setup, include=FALSE}
