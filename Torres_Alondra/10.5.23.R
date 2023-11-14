@@ -81,3 +81,19 @@ sample(1:10, 10) #gives you 10 numbers between 1 and 10 in randomized order
 sample(1:10, 10, replace =TRUE) #BOOTSTRAPPING --sampling with replacement. Basically like picking number out of a hat, then replacing it back into the hat.
 
 
+sample(1:10, 7, replace =FALSE) #jackknifing: randomly sub sampling your data
+
+obs.mean=mean(mtcars$mpg)
+
+sam.mean=vector (length=100)
+  for(i in 1:10){
+    samp.mean=vector(1:length(mtcars$mpg), 25)
+    samp.mean[i]=mean (mtcars$mpg[samp])
+  }
+
+samp.mean
+obs.mean
+
+hist(samp.mean) #make a histogram
+abline(v=obs.mean, col='red') #draw a red line where my observed mean was
+

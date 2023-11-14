@@ -1,0 +1,46 @@
+---
+title: "R Markdown Module"
+author: "Ken Kugel"
+date: "2023-11-14"
+output: html_document
+---
+YAML Header above - marked by the dashes. We can change the output formate to pdf_document or doc_document then click knit again.
+
+Hashmarks (#) control the size of the header!
+
+ctrl+alt+i adds a new chuck
+
+echo=FALSE means you do not want to see the chunk of code
+
+You can also name your chunks ie- ```{r cars} would name the r chunk cars
+
+include= is also an important part. This means you can include=FALSE to skip some code
+
+eval= false shows the chunk but does not run it
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
