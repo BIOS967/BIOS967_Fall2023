@@ -1,0 +1,14 @@
+---
+title: 'Exercise: Make this document'
+author: "Dai Shizuka"
+date: "2023-11-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+plot(Sepal.Length~Species, data=iris)
+```
