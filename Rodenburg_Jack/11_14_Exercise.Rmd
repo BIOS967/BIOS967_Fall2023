@@ -1,0 +1,57 @@
+---
+title: 'Exercise: Make this document'
+author: "Jack Rodenburg"
+date: "2023-11-14"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+***
+Let’s see if you can make a document that looks *exactly like this* using **R Markdown.** Try to copy this document verbatum. Set the output to “html_document”
+
+***
+
+## 1. Insert this plot from the `iris` dataset
+Here, I want you to insert a plot of three species of iris from the `iris` dataset. I have suppressed the printing of the code here. Some clues:
+
+* It’s easy to produce boxplots using the formula syntax inside the `plot()` function.
+* Use the code chunk option that prevents the code from being printed
+* Use the code chunk option that shrinks the plot by 50%
+* The three shades I used are “gray100”, “gray75” and “gray50”.
+
+```{r echo = FALSE, out.width='50%', out.height='50%', fig.align = 'center'}
+#library(ggplot2)
+boxplot(Sepal.Length~Species, data=iris, main="Sepal Length of Three Species of Iris")
+```
+
+
+
+
+## 2. Conduct and report the results of an analysis
+We can conduct a linear regression between the speed of a car and the distance it takes for the car to stop. This data is available in a dataset called `cars` that is pre-installed in R
+
+```{r}
+head(cars)
+```
+Let's plot it
+
+```{r}
+plot(dist~speed, data=cars, pch=19)
+```
+We can conduct the linear regression with speed as the independent variable and distance as the dependent variable:
+```{r}
+fit.cars=lm(dist~speed, data=cars)
+summary(fit.cars)
+```
+## 3. Create a table to present results
+
+
+Table Header^2^ | Second Header
+------------- | -------------
+Table Cell | Cell 2
+Cell 3 | Cell 4 
+
+
+
+
